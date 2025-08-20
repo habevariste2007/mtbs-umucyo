@@ -1,0 +1,3074 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MTBS Computer Services</title>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+   <style>
+/* GENERAL STYLES */
+body {
+  margin: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: #f4f6f9;
+  color: #333;
+}
+
+/* FIXED HEADER */
+#fixedHeader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: #fff;
+  z-index: 1000;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+#fixedContainer {
+  background-color: skyblue;
+  padding: 5px 20px;
+  text-align: center;
+}
+
+#fixedContainer h2 {
+  font-size: 20px;
+  margin: 0;
+  padding: 5px 0;
+  color: white;
+  line-height: 1.2;
+}
+
+/* TOP MENU */
+#topMenuContainer {
+  display: flex;
+  flex-wrap: wrap;
+  background-color: #006d77;
+  padding: 8px 16px;
+  gap: 10px;
+  align-items: center;
+  border-bottom: 2px solid #004d4d;
+  z-index: 1000;
+}
+
+.parent {
+  position: relative;
+  display: inline-block;
+}
+
+.submenu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: white;
+  border: 1px solid #ccc;
+  padding: 5px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  z-index: 999;
+}
+
+.parent:hover .submenu {
+  display: block;
+}
+
+#topMenuContainer button,
+.submenu button {
+  background-color: #00a896;
+  border: none;
+  color: white;
+  padding: 6px 12px;
+  font-size: 14px;
+  font-weight: 500;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+#topMenuContainer button:hover,
+.submenu button:hover {
+  background-color: #028090;
+}
+
+.submenu button {
+  background: none;
+  color: #333;
+  text-align: left;
+  width: 100%;
+  padding: 8px 12px;
+  border-radius: 0;
+}
+
+/* TOOLBAR */
+.toolbar-container {
+  position: fixed;
+  top: 90px;
+  left: 0;
+  width: 100%;
+  background: #f0f0f0;
+  z-index: 999;
+  padding: 6px 8px;
+  border-top: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.toolbar-group {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+
+.toolbar-group button,
+.toolbar-group i {
+  font-size: 13px;
+  width: 22px;
+  height: 22px;
+  line-height: 22px;
+  padding: 0;
+  margin: 0;
+  border: none;
+  background: transparent;
+  color: #444;
+  text-align: center;
+  cursor: pointer;
+  border-radius: 3px;
+  transition: color 0.2s ease, background 0.2s ease;
+}
+
+.toolbar-group button:hover,
+.toolbar-group i:hover {
+  color: #007f7e;
+  background: #e0f7f7;
+}
+
+#cashierName,
+#filterAccount,
+#filterCashier,
+#filterProgress {
+  max-width: 120px;
+}
+
+.toolbar-group span {
+  display: flex;
+  align-items: center;
+  padding: 0 4px;
+  color: #666;
+  font-size: 14px;
+}
+
+input[type="datetime-local"]::-webkit-calendar-picker-indicator {
+  cursor: pointer;
+  filter: invert(30%) sepia(100%) saturate(500%) hue-rotate(150deg);
+}
+
+.toolbar-container::-webkit-scrollbar {
+  height: 6px;
+}
+.toolbar-container::-webkit-scrollbar-thumb {
+  background: #bbb;
+  border-radius: 3px;
+}
+.toolbar-container::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* MAIN CONTENT BLOCK */
+#mainContent {
+  margin-top: 5px; /* space for fixed header + toolbar */
+  margin-bottom: 0px;
+  padding: 10px 20px;
+  background: #fff;
+}
+#mainTables {
+  margin-top: 370px; /* space for fixed header + toolbar */
+  margin-bottom: 10px;
+  padding: 10px 20px;
+  background: #fff;
+}
+
+/* FORMS & FIELDS */
+fieldset, form {
+  margin: 0 !important;
+  padding: 0 !important;
+  line-height: 1 !important;
+  text-align: right;
+}
+
+fieldset label {
+  display: inline-block;
+  width: 130px;
+  text-align: right;
+  margin-right: 8px;
+  vertical-align: middle;
+}
+
+fieldset input[type="text"],
+fieldset input[type="tel"],
+fieldset input[type="number"],
+fieldset select {
+  text-align: left;
+  direction: rtl;
+  width: 120px;
+  vertical-align: middle;
+  margin-bottom: 6px;
+}
+
+fieldset button {
+  float: left;
+  margin-top: 10px;
+  padding: 6px 12px;
+}
+
+fieldset br {
+  margin: 0 !important;
+  line-height: 0 !important;
+  height: 0 !important;
+  display: block;
+}
+
+/* TABLES */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  font-size: 15px;
+}
+
+th, td {
+  border: 1px solid #ccc;
+  padding: 4px 8px;
+  text-align: center;
+  white-space: nowrap;
+}
+
+th {
+  background-color: #f2f2f2;
+  font-weight: bold;
+  position: sticky;
+  top: 0;
+  z-index: 2;
+}
+/* Scrollable container */
+.scrollable-table {
+  max-height: 300px;
+  overflow-y: auto;
+  border: 1px solid #ccc;
+}
+
+/* Main table style */
+.styled-table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+
+/* Sticky header */
+.styled-table thead th {
+  position: sticky;
+  top: 0;
+  background: #f2f2f2;
+  z-index: 2;
+  padding: 2px 6px;
+  height: 0.5cm;
+  border: 1px solid #ccc;
+  font-weight: bold;
+  text-align: left;
+}
+
+/* Table cells */
+.styled-table td {
+  height: 0.3cm;
+  padding: 2px 6px;
+  border: 1px solid #ccc;
+}
+
+/* Text alignment logic */
+.styled-table td,
+.styled-table th {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+/* Left align text-based columns */
+#salesTable td:nth-child(2),
+#salesTable td:nth-child(3),
+#salesTable td:nth-child(4),
+#salesTable td:nth-child(7),
+#salesTable td:nth-child(11),
+#salesDetailsTable td:nth-child(2),
+#salesDetailsTable td:nth-child(5),
+#salesDetailsTable td:nth-child(6),
+#salesDetailsTable td:nth-child(7),
+#salesDetailsTable td:nth-child(11),
+#journalTable td:nth-child(2),
+#journalTable td:nth-child(3),
+#journalTable td:nth-child(7),
+#productSalesTable td:nth-child(2),
+#stockingTable td:nth-child(2),
+#stockingTable td:nth-child(3),
+#stockingTable td:nth-child(4),
+#materialStatusTable td:nth-child(2) {
+  text-align: left;
+}
+
+/* Right align numeric columns */
+#salesTable td:nth-child(1),
+#salesTable td:nth-child(5),
+#salesTable td:nth-child(6),
+#salesTable td:nth-child(8),
+#salesTable td:nth-child(9),
+#salesTable td:nth-child(10),
+#salesDetailsTable td:nth-child(1),
+#salesDetailsTable td:nth-child(4),
+#salesDetailsTable td:nth-child(8),
+#salesDetailsTable td:nth-child(9),
+#salesDetailsTable td:nth-child(10),
+#journalTable td:nth-child(1),
+#journalTable td:nth-child(4),
+#journalTable td:nth-child(5),
+#journalTable td:nth-child(6),
+#productSalesTable td:nth-child(1),
+#productSalesTable td:nth-child(3),
+#productSalesTable td:nth-child(4),
+#productSalesTable td:nth-child(5),
+#stockingTable td:nth-child(1),
+#stockingTable td:nth-child(6),
+#stockingTable td:nth-child(7),
+#materialStatusTable td:nth-child(1),
+#materialStatusTable td:nth-child(3),
+#materialStatusTable td:nth-child(4),
+#materialStatusTable td:nth-child(5),
+#materialStatusTable td:nth-child(6),
+#materialStatusTable td:nth-child(7) {
+  text-align: right;
+}
+
+</style>
+
+</head>
+<body>
+<header>
+ <div id="fixedHeader">
+    <div class="container" id="fixedContainer">
+      <h2>MTBS Information System Management</h2>
+
+      <div id="topMenuContainer">
+        <!-- Home Menu -->
+        <div class="parent">
+          <button type="button" onclick="displaySalesForm()">Home</button>
+          <div class="submenu">
+            <button onclick="displaySalesForm()">Sales Form</button>
+            <button onclick="displayProductForm()">Product Form</button>
+            <button onclick="displayCombinedSalesTable()">Combined Sales Table</button>
+            <button onclick="displayMaterialStatusTable()">Material Status Table</button>
+          </div>
+        </div>
+
+        <!-- Sales Menu -->
+        <div class="parent">
+          <button type="button" onclick="displaySales()">Sales</button>
+          <div class="submenu">
+            <button onclick="displaySalesForm()">Sales Form</button>
+            <button onclick="displayProductForm()">Product Form</button>
+            <button onclick="displayProductSalesTable()">Product Sales Table</button>
+            <button onclick="displayCombinedSalesTable()">Combined Sales Table</button>
+            <button onclick="addOrUpdateSales()">Add/Update Sales</button>
+            <button onclick="addProduct()">Add Product</button>
+            <button onclick="generateLogbook()">Generate Logbook</button>
+            <button onclick="filterData()">Filter</button>
+            <button onclick="searchData()">Search</button>
+            <button onclick="printTable()">Print Table</button>
+          </div>
+        </div>
+
+        <!-- Stock Menu -->
+        <div class="parent">
+          <button type="button" onclick="displayStock()">Stock</button>
+          <div class="submenu">
+            <button onclick="displaySalesForm()">Sales Form</button>
+            <button onclick="displayAddEntryForm()">Add Entry Form</button>
+            <button onclick="displayMaterialStatusTable()">Material Status Table</button>
+            <button onclick="displayStockingTable()">Stocking Table</button>
+            <button onclick="addEntry()">Add Entry</button>
+          </div>
+        </div>
+
+        <!-- Accounting -->
+        <button type="button" onclick="displayJournal()">Accounting</button>
+      </div>
+    </div>
+    <!-- TOOLBAR -->
+    <div class="toolbar-container">
+      <div class="toolbar-group">
+        <label title="Select Date & Time">
+          <i class="fas fa-calendar-alt" onclick="document.getElementById('date').showPicker()"></i>
+          <i class="fas fa-clock" onclick="document.getElementById('date').showPicker()"></i>
+        </label>
+        <input type="datetime-local" id="date">
+        <button onclick="fillCurrentDateTime()" title="Now"><i class="fas fa-clock"></i></button>
+      </div>
+
+      <div class="toolbar-group">
+        <label title="Select Cashier"><i class="fas fa-user"></i></label>
+        <select id="cashierName">
+          <option selected>Nishimwe Odette</option>
+          <option>Habumugisha Evariste</option>
+        </select>
+      </div>
+
+      <div class="toolbar-group">
+        <button onclick="addSalesRecord()" title="Add Sale"><i class="fas fa-plus"></i></button>
+        <button id="updateSalesButton" onclick="updateSalesRecord()" title="Update Sale" style="display:none;"><i class="fas fa-edit"></i></button>
+      </div>
+	  <!-- Font Awesome must be loaded -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<div class="toolbar-group">
+  <!-- Save Data Icon Button -->
+  <button onclick="saveDataToServer()" title="Save Data">
+    <i class="fas fa-save"></i>
+  </button>
+
+  <!-- Hidden file input for Load -->
+  <input type="file" id="fileInput" style="display: none;" onchange="importData(event)">
+
+  <!-- Load Data Icon Button -->
+  <button onclick="document.getElementById('fileInput').click()" title="Load Data from File">
+    <i class="fas fa-file-import"></i>
+  </button>
+</div>
+
+<!-- Save message -->
+<div id="saveMessage" style="color: green; font-weight: bold; display: none; margin-top: 10px;">
+  ✅ Data saved successfully.
+</div>
+
+
+     <div class="toolbar-group">
+  <!-- Export Data Button -->
+  <button onclick="exportData()" title="Export Data">
+    <i class="fas fa-file-export"></i>
+  </button>
+
+  <!-- Hidden file input for Import -->
+  <input type="file" id="fileInput" style="display:none;" onchange="importData(event)">
+
+  <!-- Import Data Button -->
+  <button onclick="document.getElementById('fileInput').click()" title="Import Data">
+    <i class="fas fa-file-import"></i>
+  </button>
+</div>
+
+      <div class="toolbar-group">
+        <button onclick="searchData()" title="Search"><i class="fas fa-search"></i></button>
+        <input type="text" id="searchClientInput" placeholder="Client, address, invoice" style="width: 140px;">
+        <button onclick="filterData()" title="Filter"><i class="fas fa-filter"></i></button>
+
+        <select id="filterPeriod">
+          <option value="All">All periods</option>
+          <option value="Annual">Annual</option>
+          <option value="Semester">Semester</option>
+          <option value="Trimester">Trimester</option>
+          <option value="Monthly">Monthly</option>
+          <option value="Weekly">Weekly</option>
+          <option value="Daily">Daily</option>
+          <option value="Hourly">Hourly</option>
+        </select>
+
+        <select id="filterAccount">
+          <option selected>All Pay-modes</option>
+          <option>Cash</option>
+          <option>Momo</option>
+          <option>Bank</option>
+          <option>Unpaid</option>
+        </select>
+
+        <select id="filterCashier" style="width: 90px;">
+          <option selected>All Cashiers</option>
+          <option>Nishimwe Odette</option>
+          <option>Habumugisha Evariste</option>
+        </select>
+
+        <select id="filterProgress">
+          <option selected>All Progress</option>
+          <option>Delivered</option>
+          <option>Ready</option>
+          <option>Order</option>
+        </select>
+      </div>
+
+      <div class="toolbar-group">
+        <label title="From Date/Time">
+          <i class="fas fa-calendar-alt" onclick="document.getElementById('filterFromDate').showPicker()"></i>
+          <i class="fas fa-clock" onclick="document.getElementById('filterFromDate').showPicker()"></i>
+        </label>
+        <span><i class="fas fa-arrow-right"></i></span>
+        <label title="To Date/Time">
+          <i class="fas fa-calendar-alt" onclick="document.getElementById('filterToDate').showPicker()"></i>
+          <i class="fas fa-clock" onclick="document.getElementById('filterToDate').showPicker()"></i>
+        </label>
+      </div>
+
+      <div class="toolbar-group">
+        <button onclick="printTable()" title="Print"><i class="fas fa-print"></i></button>
+        <button id="refreshButton" onclick="filterData()" title="Refresh"><i class="fas fa-sync-alt"></i></button>
+      </div>
+    </div>
+  
+ <div id="mainContent">
+	<table>
+                    <td>
+                        <fieldset style="width: 90%;" "margin-left: 2%" id="f1">	
+		 <form id="salesForm">
+			
+			<label for="clientName">Client Name</label>
+            <input type="text" style="width:120px;" name="clientName" value="Client1"><br>
+			<label for="clientAddress">Client Address</label>
+			<input type="text" style="width:120px;" name="clientAddress" value="Karenge"><br>
+			<label for="clientContact">Client Contact</label>
+			<input type="tel" style="width:120px;" id="clientContact" value="0000000000" name="clientContact" oninput="formatPhoneNumber()" maxlength="12"><br>
+			<label for="invoiceNo">Invoice No</label>
+            <input type="text" id="invoiceNo" style="width:120px;" name="invoiceNo" readonly><br>
+			<label for="paidAmount">Paid</label>
+<input type="number" style="width:120px;" id="paidAmount" name="paidAmount" onchange="calculateUnpaid()"><br>
+ <label for="account">Account</label>
+<select id="account" style="width:127px;" name="account" required>
+<option value="" disabled selected>Payment Mode</option>
+        <option value="Cash">Cash</option>
+        <option value="Momo">MoMo</option>
+		<option value="Bank">Bank</option>
+		<option value="Unpaid">Unpaid</option>
+    </select><br>
+    <label for="unpaidAmount">Unpaid</label>
+    <input type="number" style="width:120px;" id="unpaidAmount" name="unpaidAmount" readonly><br>
+	<label for="progress">Progress</label>
+    <select id="progress" style="width:127px;" name="progress" required>
+        <option value="Delivered">Delivered</option>
+        <option value="Ready">Ready</option>
+		<option value="Order">Order</option>
+    </select><br>
+			</form>
+    </fieldset>
+		
+	<td>
+	
+     <fieldset style="width: 80%; margin-left: 2%" id="f2">
+		<form id="productForm" >
+		 <button class="icon-button" onclick="addProduct()" title="Serving">
+  <i class="fas fa-utensils"></i>
+</button>
+		
+		 <label for="product">Product:</label>
+         <select id="product" type="text" style="width:110px;" name="product" onchange="handleProductChange(this)"><br>
+		 <option value="" disabled selected>Select product</option>
+        <option value="Copy">Copy</option>
+        <option value="Print">Print</option>
+        <option value="Scan">Scan</option>
+		 <option value="Type">Type</option>
+        <option value="Bind">Bind</option>
+		<option value="File">File</option>
+		<option value="Envelope150">Envelope 150</option>
+		<option value="Envelope100">Envelope 100</option>
+		<option value="Envelope50">Envelope 50</option>
+		<option value="Pen-Bic">PEN-BIC</option>
+		<option value="Pen-Beifa">PEN-BEIFA</option>
+		<option value="Pencil">Pencil</option>
+		<option value="invitation150">Invitation 150</option>
+		    <option value="invitation100">Invitation 100</option>
+			 <option value="invitation200">Invitation 200</option>
+			  <option value="notemusana250">Note-Musana 250</option>
+			   <option value="notedessin300">Note-Dessin 300</option>
+			   <option value="notecrapaper600">Note-Crane-paper 600</option>
+			   <option value="notecrapaper350">Note-Crane-paper 350</option>
+			   <option value="notemusana500">Note-Musana 500</option>
+			   <option value="notecaligraphy300">Note-caligraphy 300</option>
+		<option value="Syllabus">Syllabus</option>
+		<option value="other">Other</option>
+    </select><br>
+		  <div id="otherProductInput" style="display:none;">
+        <label for="otherProduct">Other Product:</label>
+        <input type="text" style="width:110px;" name="otherProduct">
+    </div>
+	 <div id="syllabusOptions" style="display:none;">
+        <label for="school">School:</label>
+        <select id="school" name="school">
+		<option value="" disabled selected>School</option>
+            <option value="KAR">KAR</option>
+            <option value="ING">ING</option>
+            <option value="KANG">KANG</option>
+        </select><br>
+
+        <label for="class">Class:</label>
+        <select id="class" name="class">
+		<option value="" disabled selected>Class</option>
+            <option value="S1">S1</option>
+            <option value="S2">S2</option>
+            <option value="S3">S3</option>
+            <option value="S4">S4</option>
+            <option value="S5">S5</option>
+            <option value="S6">S6</option>
+        </select><br>
+
+        <label for="subject">Subject:</label>
+        <select id="subject" name="subject">
+		<option value="" disabled selected>Subject</option>
+            <option value="HIST">HIST</option>
+            <option value="PHYS">PHYS</option>
+            <option value="BIOL">BIOL</option>
+            <option value="CHEM">CHEM</option>
+            <option value="ENTS">ENTS</option>
+			<option value="ENGL">ENGL</option>
+            <option value="GEOG">GEOG</option>
+			<option value="ICT">ICT</option>
+            <option value="LIT">LIT</option>
+            <option value="MATH">MATH</option>
+        </select><br>
+    </div>
+		 <label for="quantity">Quantity:</label>
+<input type="number" style="width:110px;" name="quantity"><br>
+
+<label for="unitPrice">Unit Price:</label>
+<input type="number" style="width:110px;" name="unitPrice" onchange="calculateTotalPrice()"><br>
+
+<label for="totalPrice">Total Price:</label>
+<input type="number" style="width:110px;" name="totalPrice" readonly><br>
+<label for="comments">Comments:</label>
+<input type="text" style="width:110px;" id="comments" name="comments">
+
+		 </form>
+		 				 
+		<form id="addEntryForm" style="display:none;">
+		<button type="button" onclick="addStockingEntry()">Stocking</button>
+		<br><label for="materialType">Material Type</label>
+    <select id="materialType" style="width:110px;" name="materialType" required>
+		<option value="" disabled selected>Select material</option>
+        <option value="papers">Papers</option>
+        <option value="bristol">Bristol</option>
+        <option value="transp">Transparent</option>
+        <option value="envelope150">Envelopes 150</option>
+		  <option value="envelope100">Envelopes 100</option>
+		    <option value="envelope50">Envelopes 50</option>
+			 <option value="Pen-Bic">PEN-BIC</option>
+			  <option value="Pen-Beifa">PEN-BEIFA</option>
+			   <option value="Pencil">Pencil</option>
+			    <option value="Pho-Paper10-15">Pho-Paper10-25</option>
+        <option value="files">Files</option>
+		<option value="invitation150">Invitation 150</option>
+		    <option value="invitation100">Invitation 100</option>
+			 <option value="invitation200">Invitation 200</option>
+			  <option value="notemusana250">Note-Musana 250</option>
+			   <option value="notedessin300">Note-Dessin 300</option>
+			   <option value="notecrapaper600">Note-Crane-paper 600</option>
+			   <option value="notecrapaper350">Note-Crane-paper 350</option>
+			   <option value="notemusana500">Note-Musana 500</option>
+			   <option value="notecaligraphy300">Note-caligraphy 300</option>
+    </select><br>
+
+    <label for="action">Action:</label>
+    <select id="action" style="width:110px;" name="action" required>
+		<option value="" disabled selected>Select action</option>
+        <option value="received">Received</option>
+        <option value="used">Used/Sold</option>
+		       <option value="office">Office Use</option>
+        <option value="scrapped">Scrapped</option>
+    </select><br>
+
+    <label for="quantity">Quantity</label>
+    <input type="number" id="quantity" style="width:110px;" name="quantity" required>
+</form>
+ <form id="journalForm" style="display:none;">
+        <label for="description">Item Description</label>
+        <input type="text" id="description" required>
+        <br>
+        <label for="income">Income (Rfw)</label>
+        <input type="number" id="income">
+        <br>
+        <label for="expenses">Expenses</label>
+        <input type="number" id="expenses">
+        <br>
+        <button type="button" id="add-entry" onclick="addEntry()">Add Entry</button>
+        <button type="button" id="update-entry" onclick="updateEntry()" style="display: none;">Update Entry</button>
+		
+        
+</form>
+
+   
+		</fieldset>
+        </td>
+         <td>
+
+      <fieldset style="width: 100%; margin-left: 8%" id="f3">
+			 <table id="productSalesTable" style="display: block;">
+			 
+        <thead>
+		 <tr>
+        <td colspan="6" style="text-align: center; vertical-align: middle;"><strong>Products Sales Table</strong></td>
+    </tr>
+            <tr>
+                <th>No</th>
+                <th>Product</th>
+                <th>Quantity</th>
+                <th>Unit Price</th>
+                <th>Total Price</th>
+				 <th>Comments</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+</table>		
+</fieldset>
+ </div>
+ </div>
+</header>
+<div id="mainTables">
+<!-- Stocking table -->
+<table id="stock">
+<tr>
+<td>
+<div class="ScrollBar">
+   <table id="stockingTable" style="display:none;">
+    <thead>
+        <tr>
+            <th>No</th>
+            <th>Date</th>
+            <th>Cashier</th>
+            <th>Material</th>
+            <th>Action</th>
+            <th>Quantity</th>
+            <th>Available</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody id="stockingTableBody">
+        <!-- Stocking table rows will be dynamically added here -->
+    </tbody>
+</table>
+	</div>
+	</td>
+	<td>
+	<table id="materialStatusTable" style="display: none;">
+    <thead>
+		 <tr>
+        <td colspan="7" style="text-align: center; vertical-align: middle;"><strong>Materials Status</strong></td>
+    </tr>
+            <th>No</th>
+            <th>Material</th>
+            <th>Received</th>
+            <th>Used</th>
+			 <th>Office</th>
+            <th>Scrapped</th>
+            <th>Available</th>
+        </tr>
+    </thead>
+    <tbody id="materialStatusTableBody"></tbody>
+</table>
+</td>
+ <div class="upper-table">
+ <h3><center>Sales Table</h3></center>
+    <table id="salesTable">
+	         <thead>
+            <tr class="header">
+               <th onclick="sortTable(0)">No</th>
+<th onclick="sortTable(1)">Date</th>
+<th onclick="sortTable(2)">Client</th>
+<th onclick="sortTable(3)">Address</th>
+<th onclick="sortTable(4)">Telephone</th>
+<th onclick="sortTable(5)">Total Price</th>
+<th onclick="sortTable(6)">Cashier</th>
+<th onclick="sortTable(7)">Invoice No</th>
+<th onclick="sortTable(8)">Paid</th>
+<th onclick="sortTable(9)">Unpaid</th>
+<th onclick="sortTable(10)">Status</th>
+<th onclick="sortTable(11)">Progress</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody id="salesTableBody">
+		<tbody id="salesTableBody"></tbody>
+            <!-- Combined sales records will be displayed here -->
+        </tbody>
+    </table>
+	</div>
+	
+	 <div class="upper-table">
+            <table id="journalTable" style="display:none;">
+                <thead>
+                    <tr class="header">
+                        <th>No</th>
+                        <th>Date</th>
+                        <th>Item Description</th>
+                        <th>Income (Rfw)</th>
+                        <th>Expenses</th>
+                        <th>Balance</th>
+                        <th>Cashier</th>
+                        <th>Edit/Delete</th>
+                    </tr>
+                </thead>
+                <tbody id="journal-entries">
+                    <!-- Entries will be added here -->
+                </tbody>
+            </table>
+        </div>
+		<!-- Add a container for the sales details table -->
+<div id="salesDetailsContainer">
+    <h3><center>Sales Details</h3></center>
+    <div id="salesDetailsContainer">
+    <div class="table-container">
+        <table id="salesDetailsTable">
+            <thead>
+                <tr>
+                    <th>No</th>
+                    <th>Date</th>
+                    <th>Invoice-No</th>
+                    <th>Cashier</th>
+                    <th>Client</th>
+                    <th>Address</th>
+                    <th>Telephone</th>
+					 <th>Total</th>
+                    <th>Paid</th>
+                    <th>Unpaid</th>
+                    <th>Status</th>
+                    <th>Progress</th>
+                    <!-- Columns for each product -->
+                    <th>Product-1</th>
+                    <th>P1-Qtty</th>
+                    <th>P1-U.P</th>
+                    <th>P1-T.P</th>
+					<th>Comm-P1</th>
+                    <th>Product-2</th>
+                    <th>P2-Qtty</th>
+                    <th>P2-U.P</th>
+                    <th>P2-T.P</th>
+					<th>Comm-P2</th>
+                    <th>Product-3 </th>
+                    <th>P3-Qtty</th>
+                    <th>P3-U.P</th>
+                    <th>P3-T.P</th>
+					<th>Comm-P3</th>
+                    <th>Product-4</th>
+                    <th>P4-Qtty</th>
+                    <th>P4-U.P</th>
+                    <th>P4-T.P</th>
+					<th>Comm-P4</th>
+                    <th>Product-5</th>
+                    <th>P5-Qtty</th>
+                    <th>P5-U.P</th>
+                    <th>P5-T.P</th>
+					<th>Comm-P5</th>
+					<th>Product-6 </th>
+                    <th>P6-Qtty</th>
+                    <th>P6-U.P</th>
+                    <th>P6-T.P</th>
+					<th>Comm-P6</th>
+					<th>Product-7</th>
+                    <th>P7-Qtty</th>
+                    <th>P7-U.P</th>
+                    <th>P7-T.P</th>
+					<th>Comm-P7</th>
+					<th>Product-8</th>
+                    <th>P8-Qtty</th>
+                    <th>P8-U.P</th>
+                    <th>P8-T.P</th>
+					<th>Comm-P8</th>
+					<th>Product-9</th>
+                    <th>P9-Qtty</th>
+                    <th>P9-U.P</th>
+                    <th>P9-T.P</th>
+					<th>Comm-P9</th>
+					<th>Product-10</th>
+                    <th>P10-Qtty</th>
+                    <th>P10-U.P</th>
+                    <th>P10-T.P</th>
+					<th>Comm-P10</th>
+                    <!-- Add columns for more products as needed -->
+                </tr>
+            </thead>
+            <tbody id="salesDetailsTableBody">
+                <!-- Sales details rows will be dynamically added here -->
+            </tbody>
+        </table>
+    </div>
+</div>
+</div>
+</div>
+
+
+		</main>
+
+	</form>
+	
+   
+    <script>
+	  let productSales = [];
+       let combinedSales = [];
+	
+	
+		
+	document.addEventListener("DOMContentLoaded", function () {
+    loadDataFromLocal();
+});
+function refreshTable() {
+
+    // Display combined sales table
+    displayCombinedSales();
+
+    // Update entry numbers
+    updateEntryNumbers();
+
+    // Clear all forms
+    clearAllForms();
+	
+    // Hide material status table
+    materialStatusTable.style.display = "none";
+
+    // Save data to local storage (if needed)
+    saveDataToLocal();
+}
+function fillCurrentDateTime() {
+  const now = new Date();
+  const year = now.getFullYear();
+  const month = String(now.getMonth() + 1).padStart(2, '0'); // Months are 0-indexed
+  const day = String(now.getDate()).padStart(2, '0');
+  const hours = String(now.getHours()).padStart(2, '0');
+  const minutes = String(now.getMinutes()).padStart(2, '0');
+
+  const localDateTime = `${year}-${month}-${day}T${hours}:${minutes}`;
+  document.getElementById('date').value = localDateTime;
+}
+
+// Function to reset all form inputs and selects
+function resetAllInputs() {
+    // Reset form inputs
+    document.querySelectorAll('input[type="text"]').forEach(input => input.value = '');
+    document.querySelectorAll('input[type="datetime-local"]').forEach(input => input.value = '');
+    // Reset form selects
+    document.querySelectorAll('select').forEach(select => select.selectedIndex = 0);
+}
+
+// Add event listener to the refresh button
+document.getElementById('refreshButton').addEventListener('click', function() {
+    resetAllInputs();
+	clearProductSalesTable();
+	refreshTable();
+});
+
+
+ function displayHomePage() {
+  productSalesTable.style.display = "none";
+	productForm.style.display="none";
+	addEntryForm.style.display = "none";
+	 salesTable.style.display = "block";
+	 stockingTable.style.display="none";
+	 journalForm.style.display="none";
+	 journTable.style.display="none";
+	 }
+	 function displaySales() {
+	 salesForm.style.display = "block";
+  productSalesTable.style.display = "block";
+	productForm.style.display="block";
+	addEntryForm.style.display = "none";
+	 salesTable.style.display = "block";
+	 stockingTable.style.display="none";
+	 journalForm.style.display="none";
+	 journalTable.style.display="none";
+	 materialStatusTable.style.display="none";
+	 }
+	 
+	function displayJournal(){
+	 productSalesTable.style.display = "none";
+	productForm.style.display="none";
+	addEntryForm.style.display = "none";
+	materialStatusTable.style.display="none";
+	stockingTable.style.display="none";
+	 salesTable.style.display = "none";
+	 salesForm.style.display = "block";
+	 stockingTable.style.display="none";
+	 journalForm.style.display="block";
+	 journalTable.style.display="block";
+	 }
+	 function displayStock(){
+	 productSalesTable.style.display = "none";
+	productForm.style.display="none";
+	addEntryForm.style.display = "block";
+	materialStatusTable.style.display="block";
+	stockingTable.style.display="block";
+	 salesTable.style.display = "none";
+	 journalForm.style.display="none";
+	 journalTable.style.display="none";
+	 }
+// Function to format number with thousand separator
+function formatNumberWithSeparator(number) {
+    if (typeof number !== 'number') {
+        // Try parsing the number if it's not already a number
+        number = parseFloat(number);
+    }
+
+    if (!isNaN(number)) {
+        // Format the number with a thousand separator
+        return new Intl.NumberFormat('en-US').format(number);
+    } else {
+        // Return the original value if it's not a valid number
+        return number;
+    }
+} 
+   
+   function formatPhoneNumber() {
+        let phoneNumber = document.getElementById('clientContact').value;
+        phoneNumber = phoneNumber.replace(/\D/g, ''); // Remove non-numeric characters
+        if (phoneNumber.length === 10) {
+            phoneNumber = phoneNumber.replace(/(\d{3})(\d{3})(\d{4})/, '$1-$2-$3');
+            document.getElementById('clientContact').value = phoneNumber;
+        }
+    }
+   // Global variable for stocking data
+    let stockingData = [];
+	
+	 // Material and action mappings
+    const materialNames = {
+        papers: 'Papers',
+        bristol: 'Bristols',
+        transp: 'Transparents',
+        envelope150: 'Envelopes 150',
+        envelope100: 'Envelopes 100',
+        envelope50: 'Envelopes 50',
+        files: 'Files',
+		penbic: 'Pen-Bic',
+		penbeifa: 'Pen-Beifa',
+		penci: 'Pencil',
+		phopaper1015: 'Pho-Paper10-15',
+		invitation200: 'Invitation 200',
+notemusana250: 'Note-Musana 250',
+notedessin300: 'Note-Dessin 300',
+notecrapaper600: 'Note-Crane-paper 600',
+notecrapaper350: 'Note-Crane-paper 350',
+notemusana500: 'Note-Musana 500',
+notecaligraphy300: 'Note-caligraphy 300',
+    };
+
+    const actionNames = {
+        received: 'Received',
+        used: 'Used/Sold',
+        office: 'Office use',
+        scrapped: 'Scrapped',
+    };
+
+   // Function to add a new stocking entry
+function addStockingEntry() {
+    const date = document.getElementById('date').value.trim();
+    const cashierName = document.getElementById('cashierName').value.trim();
+    const materialType = document.getElementById('materialType');
+    const selectedMaterialOption = materialType.options[materialType.selectedIndex];
+    const action = document.getElementById('action').value.trim().toLowerCase();
+    const quantity = parseInt(document.getElementById('quantity').value.trim());
+
+    // Validate form data
+    if (date === '' || cashierName === '' || materialType.value === '' || action === '' || isNaN(quantity)) {
+        alert('Please fill in the required fields and provide a valid quantity.');
+        return;
+    }
+
+    // Add the new entry to the stocking data
+    const availableQuantity = calculateAvailable(selectedMaterialOption.value, quantity, action);
+    stockingData.push({
+        date,
+        cashierName,
+        materialType: selectedMaterialOption.text,
+        action,
+        quantity,
+        availableQuantity,
+    });
+
+    // Update the stocking table
+    updateStockingTable();
+
+    // Clear the form fields after adding an entry
+    document.getElementById('date').value = '';
+    document.getElementById('cashierName').value = '';
+    document.getElementById('materialType').value = '';
+    document.getElementById('action').value = '';
+    document.getElementById('quantity').value = '';
+
+    // Notify the user that the stock has been recorded
+    alert('Stock recorded successfully.');
+}
+
+
+   // Function to update the stocking table
+function updateStockingTable() {
+    const stockingTableBody = document.getElementById('stockingTableBody');
+    stockingTableBody.innerHTML = '';
+
+    let index = 1;
+
+    for (const entry of stockingData) {
+        const formattedAction = actionNames[entry.action] || entry.action; // Utilisation des libellés personnalisés
+
+        stockingTableBody.innerHTML += `
+            <tr>
+                <td>${index}</td>
+                <td>${formatDate(entry.date)}</td>
+                <td>${entry.cashierName}</td>
+                <td>${entry.materialType}</td>
+                <td>${formattedAction}</td> <!-- Utilisation du libellé personnalisé ici -->
+                <td class="numeric">${formatNumberWithSeparator(entry.quantity)}</td>
+                <td class="numeric">${formatNumberWithSeparator(entry.availableQuantity)}</td>
+                <td>
+                    <button type="button" onclick="editStockingEntry(${index - 1})">Edit</button>
+                    <button onclick="deleteStockingEntry(${index - 1})">Delete</button>
+                </td>
+            </tr>
+        `;
+        index++;
+    }
+
+    // Update the material status table
+    updateMaterialStatusTable();
+
+    // Save stocking data to local storage or perform any other necessary actions
+    saveDataToLocal();
+}
+
+   // Function to calculate available quantity for a material
+function calculateAvailable(materialType, quantity, action) {
+    let availableQuantity = 0;
+
+    // Convert materialType to lowercase for case-insensitive comparison
+    const materialTypeLower = materialType.toLowerCase();
+
+    // Calculate available quantity based on the current entry and previous entries
+    for (const entry of stockingData) {
+        const entryMaterialTypeLower = entry.materialType.toLowerCase();
+
+        if (entryMaterialTypeLower === materialTypeLower) {
+            switch (entry.action) {
+                case 'received':
+                    availableQuantity += entry.quantity;
+                    break;
+                case 'used':
+                    availableQuantity -= entry.quantity;
+                    break;
+                case 'office':
+                    availableQuantity -= entry.quantity;
+                    break;
+                case 'scrapped':
+                    // Scrapped entries are now considered separately
+                    availableQuantity -= entry.quantity;
+                    break;
+            }
+        }
+    }
+
+    // Adjust available quantity based on the current entry action
+    switch (action) {
+        case 'received':
+            availableQuantity += quantity;
+            break;
+        case 'used':
+            availableQuantity -= quantity;
+            break;
+        case 'office':
+            availableQuantity -= quantity;
+            break;
+        case 'scrapped':
+            // Scrapped entries are now considered separately
+            availableQuantity -= quantity;
+            break;
+    }
+
+    return availableQuantity;
+}
+
+
+   // Function to handle the "Edit" button click
+function editStockingEntry(index) {
+
+    // Get the entry to be edited
+    const entryToEdit = stockingData[index];
+	
+// Ask for confirmation
+    const confirmation = confirm(`Are you sure you want to edit this stock entry?`);
+    if (confirmation) {
+	
+    // Populate the form fields with the entry data
+    document.getElementById('date').value = entryToEdit.date;
+    document.getElementById('cashierName').value = entryToEdit.cashierName;
+    document.getElementById('materialType').value = entryToEdit.materialType;
+    document.getElementById('action').value = entryToEdit.action;
+    document.getElementById('quantity').value = entryToEdit.quantity;
+
+    // Remove the entry from the stocking data array
+    stockingData.splice(index, 1);
+
+    // Update the stocking table
+    updateStockingTable();
+}
+}
+
+    // Function to handle the "Delete" button click
+    function deleteStockingEntry(index) {
+        // Ask for confirmation
+        const confirmation = confirm(`Are you sure you want to remove this stock entry?`);
+        if (confirmation) {
+            // Remove the stock record from the stocking table array
+            stockingData.splice(index, 1);
+            updateStockingTable();
+            saveDataToLocal();
+        }
+    }
+
+    // Function to save stocking data to local storage
+    function saveDataToLocal() {
+        // Implement your logic to save data to local storage if needed
+    }
+	function formatDate(dateString) {
+    // Parse the input date string
+    const dateObject = new Date(dateString);
+
+    // Get day, month, year, hours, minutes, and seconds components
+    const day = dateObject.getDate().toString().padStart(2, '0');
+    const month = new Intl.DateTimeFormat('en', { month: 'short' }).format(dateObject);
+    const year = dateObject.getFullYear();
+    const hours = dateObject.getHours().toString().padStart(2, '0');
+    const minutes = dateObject.getMinutes().toString().padStart(2, '0');
+    
+    // Determine AM/PM
+    const ampm = hours >= 12 ? 'PM' : 'AM';
+
+    // Convert hours to 12-hour format
+    const formattedHours = ((hours % 12) || 12).toString().padStart(2, '0');
+
+    // Construct the formatted date string
+    const formattedDate = `${day} ${month} ${year} ${formattedHours}:${minutes} ${ampm}`;
+
+    return formattedDate;
+}
+// Function to format number with thousand separator
+function formatNumberWithSeparator(number) {
+    if (typeof number !== 'number') {
+        // Try parsing the number if it's not already a number
+        number = parseFloat(number);
+    }
+
+    if (!isNaN(number)) {
+        // Format the number with a thousand separator
+        return new Intl.NumberFormat('en-US').format(number);
+    } else {
+        // Return the original value if it's not a valid number
+        return number;
+    }
+}
+// Function to update the material status table
+function updateMaterialStatusTable() {
+    const materialStatusTableBody = document.getElementById('materialStatusTableBody');
+    materialStatusTableBody.innerHTML = '';
+
+    // Create a map to store material-wise data
+    const materialDataMap = new Map();
+
+    // Iterate over the stockingData to aggregate material-wise data
+    for (const entry of stockingData) {
+        const materialType = entry.materialType;
+
+        if (!materialDataMap.has(materialType)) {
+            materialDataMap.set(materialType, {
+                received: 0,
+                used: 0,
+                office: 0,
+                scrapped: 0,
+                available: 0,
+            });
+        }
+
+        const materialData = materialDataMap.get(materialType);
+
+        switch (entry.action) {
+            case 'received':
+                materialData.received += entry.quantity;
+                materialData.available += entry.quantity;
+                break;
+            case 'used':
+                materialData.used += entry.quantity;
+                materialData.available -= entry.quantity;
+                break;
+            case 'office':
+                materialData.office += entry.quantity;
+                materialData.available -= entry.quantity;
+                break;
+            case 'scrapped':
+                materialData.scrapped += entry.quantity;
+                materialData.available -= entry.quantity;
+                break;
+        }
+    }
+
+    // Display the aggregated data in the material status table
+    let index = 1;
+
+    for (const [materialType, materialData] of materialDataMap) {
+        materialStatusTableBody.innerHTML += `
+            <tr>
+                <td>${index}</td>
+                <td>${materialType}</td>
+                <td class="numeric">${formatNumberWithSeparator(materialData.received)}</td>
+                <td class="numeric">${formatNumberWithSeparator(materialData.used)}</td>
+                <td class="numeric">${formatNumberWithSeparator(materialData.office)}</td>
+                <td class="numeric">${formatNumberWithSeparator(materialData.scrapped)}</td>
+                <td class="numeric">${formatNumberWithSeparator(materialData.available)}</td>
+                <td>
+                    <button onclick="resetMaterial('${materialType}')">Reset</button>
+                </td>
+            </tr>
+        `;
+
+        index++;
+    }
+}
+// Function to display material status
+function displayMaterialStatus() {
+    productSalesTable.style.display = "none";
+	productForm.style.display="none";
+	addEntryForm.style.display = "block";
+	 salesTable.style.display = "none";
+	 stockingTable.style.display="block";
+	 journalForm.style.display="none";
+	 journTable.style.display="none";
+    // Show the Material Status table
+    const materialStatusTable = document.getElementById("materialStatusTable");
+    materialStatusTable.style.display = "block";
+
+    // Populate the Material Status table with data
+    updateMaterialStatusTable();
+
+    // Scroll to the Material Status table
+    materialStatusTable.scrollIntoView({ behavior: "smooth" });
+}
+
+// Function to reset a material by deleting its entries in the stocking table
+function resetMaterial(materialType) {
+    // Ask for confirmation
+    const confirmation = confirm(`Are you sure you want to reset ${materialType}? This will delete all entries for ${materialType}.`);
+    
+    if (confirmation) {
+        // Remove all entries for the specified materialType from stockingData
+        stockingData = stockingData.filter(entry => entry.materialType !== materialType);
+
+        // Update the stocking table and material status table
+        updateStockingTable();
+        updateMaterialStatusTable();
+    }
+}
+
+function newRecord() {
+refreshTable();
+displayCombinedSales();
+}
+ 
+function clearSalesForm() {
+    // Clear the sales input form
+        document.querySelector('#salesForm').reset();
+}
+
+// Rest of your code
+
+function clearProductSalesTable() {
+    // Clear the product sales array
+    productSales = [];
+
+    // Clear the product sales table display
+    displayProductSales();
+}
+
+// Function to generate Invoice No manually
+function generateManualInvoiceNumber() {
+    // Get values from input fields
+    const date = document.querySelector('input[name="date"]').value.trim();
+    const cashierName = document.querySelector('select[name="cashierName"]').value.trim();
+    const clientName = document.querySelector('input[name="clientName"]').value.trim();
+
+    // Check if required fields are empty
+    if (!date || !cashierName || !clientName) {
+        alert('Please fill in the required fields (Date, Cashier Name, Client Name) before generating Invoice No.');
+        return;
+    }
+
+    // Retrieve the last used Invoice No from local storage
+    let lastInvoiceNo = localStorage.getItem('lastInvoiceNo') || 0;
+
+    // Increment the Invoice No for the next use
+    lastInvoiceNo = parseInt(lastInvoiceNo) + 1;
+
+    // Assuming you have a function padInvoiceNumber() to pad the Invoice No with zeros
+    const nextInvoiceNo = padInvoiceNumber(lastInvoiceNo);
+
+    // Set the generated Invoice No in the Invoice No input field
+    document.getElementById('invoiceNo').value = nextInvoiceNo;
+
+    // Save the updated Invoice No to local storage
+    localStorage.setItem('lastInvoiceNo', lastInvoiceNo);
+}
+// Add an event listener to the Invoice No input field
+document.getElementById('invoiceNo').addEventListener('click', generateManualInvoiceNumber);
+
+// Helper function to pad the Invoice No with zeros
+function padInvoiceNumber(number) {
+    const invoiceNoLength = 6; // Adjust the desired length
+    return number.toString().padStart(invoiceNoLength, '0');
+}
+
+// Ajouter cette fonction pour recalculer le grand total
+function calculateGrandTotal() {
+    let grandTotal = 0;
+
+    for (const product of productSales) {
+        grandTotal += product.totalPrice;
+    }
+
+    return grandTotal;
+}
+
+// Ajouter cette fonction pour afficher le grand total
+function displayGrandTotal() {
+    const tableBody = document.querySelector("#productSalesTable tbody");
+    const grandTotalRow = tableBody.insertRow();
+    grandTotalRow.innerHTML = `
+        <td colspan="4" align="right"><strong>Grand Total:</strong></td>
+        <td class="numeric">${formatNumberWithSeparator(calculateGrandTotal().toFixed(0))}</td>
+    `;
+}
+
+// Mettez à jour cette fonction pour inclure lappel à displayGrandTotal
+
+   function displayProductSales() {
+    const tableBody = document.querySelector("#productSalesTable tbody");
+    tableBody.innerHTML = '';
+
+    for (const product of productSales) {
+        const row = tableBody.insertRow();
+        row.innerHTML = `
+            <td class="numeric">${product.no}</td>
+            <td>${product.productName}</td>
+            <td class="numeric">${formatNumberWithSeparator(product.quantity)}</td>
+            <td class="numeric">${formatNumberWithSeparator(product.unitPrice.toFixed(0))}</td>
+            <td class="numeric">${formatNumberWithSeparator(product.totalPrice.toFixed(0))}</td>
+			 <td>${product.comments}</td>
+            <td>
+                <button onclick="editProduct(${product.no})">Edit</button>
+                <button onclick="deleteProduct(${product.no})">Delete</button>
+            </td>`;
+    }
+
+    // Appel à la fonction pour afficher le grand total
+    displayGrandTotal();
+}
+
+
+// Ajouter cette fonction pour calculer le total des prix
+function calculateTotalPrice() {
+    const quantity = parseFloat(document.querySelector('input[name="quantity"]').value);
+    const unitPrice = parseFloat(document.querySelector('input[name="unitPrice"]').value);
+    const totalPrice = quantity * unitPrice;
+    document.querySelector('input[name="totalPrice"]').value = totalPrice.toFixed(2);
+}
+
+// Function to add a product to productSales
+function addProduct() {
+ productSalesTable.style.display = "block";
+  materialStatusTable.style.display = "none";
+  const comments = document.querySelector('input[name="comments"]').value.trim();
+    const productNameSelect = document.querySelector('select[name="product"]');
+    const productName = productNameSelect.value === 'other'
+        ? document.querySelector('input[name="otherProduct"]').value.trim()
+        : productNameSelect.value;
+
+    const quantity = parseFloat(document.querySelector('input[name="quantity"]').value);
+    const unitPrice = parseFloat(document.querySelector('input[name="unitPrice"]').value);
+
+    if (!productName || isNaN(quantity) || isNaN(unitPrice)) {
+        alert("Please fill in all product details before adding.");
+        return;
+    }
+
+    const product = {
+        no: productSales.length + 1,
+        productName: productName,
+        quantity: quantity,
+        unitPrice: unitPrice,
+        totalPrice: quantity * unitPrice,
+		comments: comments,
+    };
+
+  // If Syllabus is selected, add the selected Syllabus to the product object
+    if (productName === 'Syllabus') {
+        const selectedClass = document.querySelector('select[name="class"]').value;
+        const subject = document.querySelector('select[name="subject"]').value;
+        const school = document.querySelector('select[name="school"]').value;
+
+        if (subject && selectedClass && school) {
+            const syllabusInfo = `Syllabus of ${subject}-${selectedClass}-${school}`;
+            product.syllabus = syllabusInfo;
+            product.productName = syllabusInfo; // Set productName to the constructed Syllabus string
+        } else {
+            alert("Please select Subject, Class, and School for Syllabus.");
+            return;
+        }
+    }
+
+    productSales.push(product);
+    displayProductSales();
+    clearProductForm();
+    saveDataToLocal();
+}
+
+// Function to handle changes in the product select
+function handleProductChange(selectElement) {
+    const selectedProduct = selectElement.value;
+    const otherProductInput = document.getElementById('otherProductInput');
+    const syllabusOptions = document.getElementById('syllabusOptions');
+
+    // Reset other product input and hide syllabus options initially
+    otherProductInput.style.display = 'none';
+    syllabusOptions.style.display = 'none';
+
+    if (selectedProduct === 'other') {
+        otherProductInput.style.display = 'block';
+    } else if (selectedProduct === 'Syllabus') {
+        syllabusOptions.style.display = 'block';
+    }
+}
+
+
+function updateproductSalesTable() {
+    // Assuming productSalesTableBody is the tbody element in your product sales table
+    const productSalesTableBody = document.querySelector("#productSalesTable tbody");
+    productSalesTableBody.innerHTML = ''; // Clear the table body
+
+    // Loop through productSales and add rows to the table
+    for (const product of productSales) {
+        productSalesTableBody.innerHTML += `
+            <tr>
+                <td class="numeric">${product.no}</td>
+                <td>${product.productName}</td>
+                <td class="numeric">${formatNumberWithSeparator(product.quantity)}</td>
+                <td class="numeric">${formatNumberWithSeparator(product.unitPrice)}</td>
+                <td class="numeric">${formatNumberWithSeparator(product.totalPrice)}</td>
+				<td>${product.comments}</td>
+                <td>
+                    <button type="button" onclick="editProduct(${product.no})">Edit</button>
+                    <button type="button" onclick="deleteProduct(${product.no})">Delete</button>
+                </td>
+            </tr>
+        `;
+    }
+ // Appel à la fonction pour afficher le grand total
+    displayGrandTotal();
+	}
+   
+function editProduct(productNo) {
+    // Find the product in the product sales table
+    const productIndex = productSales.findIndex(product => product.no === productNo);
+
+    if (productIndex !== -1) {
+
+        // Retrieve the product
+        const product = productSales[productIndex];
+        // Display the product form and hide material status table
+        const materialStatusTable = document.getElementById("materialStatusTable");
+        materialStatusTable.style.display = "none";
+        productSalesTable.style.display = "block";
+
+        // Set the retrieved data in the input fields for editing
+        const productSelect = document.getElementById('product');
+        const productInput = document.querySelector('input[name="otherProduct"]');
+		 const commentsInput = document.querySelector('input[name="comments"]');
+		
+        // Check if the product exists in the select options
+        const productExists = productSelect.options.namedItem(product.productName);
+
+        if (productExists) {
+            productSelect.value = product.productName;
+            productInput.value = ''; // Clear input field
+        } else {
+            // If the product doesn't exist in the options, set "other" and fill the input
+            productSelect.value = 'other';
+            productInput.value = product.productName;
+            handleProductChange(productSelect); // Show the input field
+        }
+
+        document.querySelector('input[name="quantity"]').value = product.quantity;
+        document.querySelector('input[name="unitPrice"]').value = product.unitPrice;
+		
+		// Populate comment input field
+        commentsInput.value = product.comments || '';
+
+        // Save the edited product details
+        productSelect.addEventListener('change', function() {
+            handleProductChange(productSelect);
+            if (productSelect.value === 'other') {
+                productInput.value = ''; // Clear input if switching to "other"
+            }
+        });
+
+        // Remove the edited product from the product sales table
+        productSales.splice(productIndex, 1);
+
+        // Renumber the entries
+        renumberEntries();
+
+        // Update the product sales table
+        updateproductSalesTable();
+    }
+}
+
+function deleteProduct(productNo) {
+    // Find the index of the product in the product sales array
+    const productIndex = productSales.findIndex(product => product.no === productNo);
+
+    if (productIndex !== -1) {
+        // Make a copy of the product sales array
+        const originalProductSales = [...productSales];
+
+        // Ask for confirmation before deleting
+        const confirmed = confirm("Are you sure you want to delete this product?");
+
+        // Check if the user confirmed the deletion
+        if (confirmed) {
+            // Remove the product from the product sales array
+            productSales.splice(productIndex, 1);
+
+            // Renumber the entries
+            renumberEntries();
+
+            // Update the product sales table
+            updateproductSalesTable();
+
+            // Save data to local storage for later use
+            saveDataToLocalStorage();
+        } else {
+            // If the user cancels, restore the original product sales array
+            productSales = originalProductSales;
+
+            // Update the product sales table with the original data
+            updateproductSalesTable();
+        }
+    }
+}
+   
+
+
+function renumberEntries() {
+    // Update entry numbers based on the current state of the product sales array
+    productSales.forEach((product, index) => {
+        product.no = index + 1;
+    });
+}
+// Add an event listener to the paidAmount input field
+document.getElementById('paidAmount').addEventListener('input', calculateUnpaidAmount);
+
+// Function to calculate unpaidAmount
+function calculateUnpaidAmount() {
+    const paidAmount = parseFloat(document.getElementById('paidAmount').value) || 0;
+    const totalSales = productSales.reduce((total, product) => total + product.totalPrice, 0);
+    const unpaidAmount = totalSales - paidAmount;
+
+    // Set the calculated unpaidAmount in the unpaidAmount input field
+    document.getElementById('unpaidAmount').value = unpaidAmount.toFixed(0);
+}
+function addSalesRecord() {
+    formatPhoneNumber();
+
+    if (productSales.length === 0) {
+        alert("Please add at least one product before adding sales.");
+        return;
+    }
+
+    const date = document.querySelector('input[name="date"]').value.trim();
+    const cashierName = document.querySelector('select[name="cashierName"]').value.trim();
+    const clientName = document.querySelector('input[name="clientName"]').value.trim();
+    const clientAddress = document.querySelector('input[name="clientAddress"]').value.trim();
+    const clientContact = document.querySelector('input[name="clientContact"]').value.trim();
+    const invoiceNo = document.querySelector('input[name="invoiceNo"]').value.trim();
+    const progress = document.querySelector('select[name="progress"]').value.trim();
+    const accountSelect = document.getElementById('account');
+    const account = accountSelect.value.trim();
+
+    if (!date || !cashierName || !clientName || !clientAddress || !clientContact || !progress || !invoiceNo) {
+        alert("Please fill in all required fields before adding sales.");
+        return;
+    }
+
+    const paidInput = document.querySelector('input[name="paidAmount"]');
+    const paidAmountRaw = paidInput.value.trim();
+
+    if (paidAmountRaw === "") {
+        alert("Please fill in the Paid amount.");
+        paidInput.classList.add("blink-red");
+        setTimeout(() => paidInput.classList.remove("blink-red"), 1500);
+        paidInput.focus();
+        return;
+    }
+
+    const paidAmount = parseFloat(paidAmountRaw);
+    if (paidAmount < 0) {
+        alert("Invalid paid amount.");
+        paidInput.classList.add("blink-red");
+        setTimeout(() => paidInput.classList.remove("blink-red"), 1500);
+        paidInput.focus();
+        return;
+    }
+
+    const totalSales = productSales.reduce((total, product) => total + product.totalPrice, 0);
+
+    // Validate if paid > totalSales
+    if (paidAmount > totalSales) {
+        alert("Invalid input paid amount: Paid is greater than total.");
+        paidInput.classList.add("blink-red");
+        setTimeout(() => paidInput.classList.remove("blink-red"), 1500);
+        paidInput.focus();
+        return;
+    }
+
+    const unpaidAmount = totalSales - paidAmount;
+    document.querySelector('input[name="unpaidAmount"]').value = unpaidAmount.toFixed(2);
+
+    // Handle account select options
+    const options = accountSelect.options;
+
+    if (paidAmount <= 0) {
+        for (let i = 0; i < options.length; i++) {
+            options[i].disabled = options[i].value !== 'Unpaid';
+            if (options[i].value === 'Unpaid') options[i].selected = true;
+        }
+    } else {
+        for (let i = 0; i < options.length; i++) {
+            if (options[i].value === "Unpaid") {
+                options[i].disabled = true;
+                if (account === "Unpaid") {
+                    alert("Please select a valid Payment Account.");
+                    return;
+                }
+            } else {
+                options[i].disabled = false;
+            }
+        }
+
+        if (!account || account === "Unpaid") {
+            alert("Please select a valid Payment Account (Cash, Momo, or Bank).");
+            return;
+        }
+    }
+
+    const status = unpaidAmount === 0 ? `Paid-${account}` : 'Unpaid';
+
+    const salesRecord = {
+        no: combinedSales.length + 1,
+        date,
+        cashierName,
+        clientName,
+        clientAddress,
+        clientContact,
+        invoiceNo,
+        products: [...productSales],
+        totalSales,
+        paidAmount,
+        unpaidAmount,
+        status,
+        progress
+    };
+
+    combinedSales.push(salesRecord);
+    saveDataToLocal();
+    updateSalesDetailsTable();
+    clearProductSalesTable();
+    updateEntryNumbers();
+    displayCombinedSales();
+    clearAllForms();
+}
+
+
+
+
+
+// Rest of your code...
+
+     function displayCombinedSales() {
+    // Display combined sales records in the table
+    const tableBody = document.querySelector("#salesTable tbody");
+    tableBody.innerHTML = '';
+
+    // Get the table element
+    const table = document.getElementById('salesTable');
+
+    for (const salesRecord of combinedSales.slice().reverse()) {
+        const row = tableBody.insertRow();
+
+        row.innerHTML = `
+            <td class="numeric">${salesRecord.no}</td>
+            <td class="no-wrap">${formatDate(salesRecord.date)}</td>
+            <td>${salesRecord.clientName}</td>
+            <td>${salesRecord.clientAddress}</td>
+            <td class="no-wrap" class="numeric">${salesRecord.clientContact}</td>
+            <td class="numeric">${formatNumberWithSeparator(salesRecord.totalSales)}</td>
+            <td>${salesRecord.cashierName}</td>
+            <td class="numeric">${salesRecord.invoiceNo}</td>
+            <td class="numeric">${formatNumberWithSeparator(salesRecord.paidAmount)}</td>
+            <td class="numeric">${formatNumberWithSeparator(salesRecord.unpaidAmount)}</td>
+            <td>${salesRecord.status}</td>
+            <td>${salesRecord.progress}</td>
+            <td class="no-wrap">
+                <button type="button" onclick="editSalesRecordByInvoiceNo('${salesRecord.invoiceNo}')">Edit</button>
+                <button onclick="retrieveInvoiceByInvoiceNo('${salesRecord.invoiceNo}')">Invoice</button>
+                <button onclick="removeSalesRecord(${salesRecord.no})">Delete</button>
+            </td>
+        `;
+    }
+
+    // Add sorting to each header cell
+    for (let i = 0; i < table.rows[0].cells.length; i++) {
+        const headerCell = table.rows[0].cells[i];
+        headerCell.addEventListener('click', function () {
+            sortTable(i);
+        });
+    }
+}
+
+	
+
+// Function to calculate the status based on unpaid amount
+function calculateStatus(unpaidAmount) {
+    return unpaidAmount === 0 ? 'Paid' : 'Unpaid';
+}
+
+	function resetSalesFormInputs() {
+    // Clear the sales form inputs
+    document.querySelector('input[name="date"]').value = '';
+    document.querySelector('input[name="clientName"]').value = 'Client1';
+    document.querySelector('input[name="clientAddress"]').value = 'Karenge';
+	document.querySelector('input[name="clientContact"]').value = '0000000000';
+    document.querySelector('input[name="invoiceNo"]').value = '';
+	document.querySelector('input[name="paidAmount"]').value = '';
+    document.querySelector('input[name="unpaidAmount"]').value = '';
+}
+
+function resetAllForms() {
+    // Reset sales form inputs
+    resetSalesFormInputs();
+
+    // Clear the product form
+    resetProductForm();
+
+    // Clear the product sales table
+    clearProductSalesTable();
+}
+ function removeSalesRecord(recordNo) {
+    // Find the sales record in the combined sales array
+    const recordToRemove = combinedSales.find(record => record.no === recordNo);
+
+    if (!recordToRemove) {
+        alert('Sales record not found for the specified record number.');
+        return;
+    }
+
+    // Ask for confirmation
+    const confirmation = confirm(`Are you sure you want to remove this sales record with Invoice No: ${recordToRemove.invoiceNo} of ${recordToRemove.clientName}?`);
+
+    if (confirmation) {
+        // Remove the sales record from the combined sales array
+        combinedSales = combinedSales.filter(record => record.no !== recordNo);
+
+        // Update entry numbers based on the current state of the array
+        updateEntryNumbers();
+		
+
+        // Update the combined sales table
+        displayCombinedSales();
+		 updateSalesDetailsTable();
+
+        // Save data to local storage for later use
+        saveDataToLocal();
+		
+    }
+}
+
+
+function updateEntryNumbers() {
+    // Update entry numbers based on the current state of the combinedSales array
+    combinedSales.forEach((record, index) => {
+        record.no = index + 1;
+    });
+}
+
+function sortTable(columnIndex) {
+    const table = document.getElementById('salesTable');
+    const rows = Array.from(table.rows).slice(1); // Exclude the header row from sorting
+    const isNumeric = columnIndex >= 0 && columnIndex <= 5; // Assuming the first 6 columns are numeric
+
+    rows.sort((a, b) => {
+        const aValue = isNumeric ? parseFloat(a.cells[columnIndex].innerText.replace(/,/g, '')) : a.cells[columnIndex].innerText;
+        const bValue = isNumeric ? parseFloat(b.cells[columnIndex].innerText.replace(/,/g, '')) : b.cells[columnIndex].innerText;
+
+        if (aValue < bValue) {
+            return -1;
+        } else if (aValue > bValue) {
+            return 1;
+        } else {
+            return 0;
+        }
+    });
+
+    // Clear the table body
+    const tableBody = document.getElementById('salesTableBody');
+    tableBody.innerHTML = '';
+
+    // Append sorted rows to the table body
+    for (const row of rows) {
+        tableBody.appendChild(row.cloneNode(true));
+    }
+}
+
+
+function editSalesRecordByInvoiceNo(invoiceNo) {
+    productSalesTable.style.display = "block";
+    materialStatusTable.style.display = "none";
+
+    const recordIndex = combinedSales.findIndex(record => record.invoiceNo === invoiceNo);
+
+    if (recordIndex === -1) {
+        alert('Sales record not found for the specified invoice number.');
+        return;
+    }
+
+    const confirmation = confirm(`Are you sure you want to edit this sales record with Invoice No: ${combinedSales[recordIndex].invoiceNo} of ${combinedSales[recordIndex].clientName}?`);
+    if (!confirmation) return;
+
+    // Set global editIndex (do not remove from array here!)
+    editIndex = recordIndex;
+
+    const recordToEdit = combinedSales[recordIndex];
+
+    // Show the "Update Sales" button and hide the "Add Sales" button
+    document.getElementById('updateSalesButton').style.display = 'inline-block';
+    document.getElementById('addSalesButton').style.display = 'none';
+
+    // Populate the salesForm with existing data
+    document.querySelector('input[name="date"]').value = recordToEdit.date;
+    document.querySelector('select[name="cashierName"]').value = recordToEdit.cashierName;
+    document.querySelector('input[name="clientName"]').value = recordToEdit.clientName;
+    document.querySelector('input[name="clientAddress"]').value = recordToEdit.clientAddress;
+    document.querySelector('input[name="clientContact"]').value = recordToEdit.clientContact;
+    document.querySelector('select[name="progress"]').value = recordToEdit.progress;
+    document.querySelector('input[name="invoiceNo"]').value = recordToEdit.invoiceNo;
+    document.querySelector('input[name="paidAmount"]').value = recordToEdit.paidAmount;
+    document.querySelector('input[name="unpaidAmount"]').value = recordToEdit.unpaidAmount;
+
+    // Set account based on status
+    const statusParts = (recordToEdit.status || '').split('-');
+    const account = statusParts.length === 2 ? statusParts[1] : (statusParts[0] === 'Unpaid' ? 'Unpaid' : '');
+    document.querySelector('select[name="account"]').value = account;
+
+    // Refill product sales array
+    productSales = recordToEdit.products.map(product => ({
+        ...product
+    }));
+
+    updateproductSalesTable();
+    displaySalesForm();
+    displayProductForm();
+    displayProductSales();
+}
+
+
+
+function updateSalesRecord() {
+    if (editIndex === -1 || !combinedSales[editIndex]) {
+        alert("No record selected for update.");
+        return;
+    }
+
+    if (productSales.length === 0) {
+        alert("Please add at least one product before updating sales.");
+        return;
+    }
+
+    formatPhoneNumber();
+
+    const date = document.querySelector('input[name="date"]').value.trim();
+    const cashierName = document.querySelector('select[name="cashierName"]').value.trim();
+    const clientName = document.querySelector('input[name="clientName"]').value.trim();
+    const clientAddress = document.querySelector('input[name="clientAddress"]').value.trim();
+    const clientContact = document.querySelector('input[name="clientContact"]').value.trim();
+    const invoiceNo = document.querySelector('input[name="invoiceNo"]').value.trim();
+    const progress = document.querySelector('select[name="progress"]').value.trim();
+    const accountSelect = document.querySelector('select[name="account"]');
+    const account = accountSelect.value.trim();
+    const paidInput = document.querySelector('input[name="paidAmount"]');
+
+    if (!date || !cashierName || !clientName || !clientAddress || !clientContact || !progress || !invoiceNo) {
+        alert("Please fill in all required fields before updating sales.");
+        return;
+    }
+
+    const paidRaw = paidInput.value.trim();
+    if (paidRaw === "") {
+        alert("Please fill in the Paid amount.");
+        paidInput.classList.add("blink-red");
+        setTimeout(() => paidInput.classList.remove("blink-red"), 1500);
+        paidInput.focus();
+        return;
+    }
+
+    const paidAmount = parseFloat(paidRaw);
+    if (paidAmount < 0) {
+        alert("Invalid paid amount.");
+        paidInput.classList.add("blink-red");
+        setTimeout(() => paidInput.classList.remove("blink-red"), 1500);
+        paidInput.focus();
+        return;
+    }
+
+    const totalSales = productSales.reduce((total, product) => total + product.totalPrice, 0);
+    const unpaidAmount = totalSales - paidAmount;
+
+    if (paidAmount > totalSales) {
+        alert("Invalid input paid amount (Paid > Total).");
+        paidInput.classList.add("blink-red");
+        setTimeout(() => paidInput.classList.remove("blink-red"), 1500);
+        paidInput.focus();
+        return;
+    }
+
+    document.querySelector('input[name="unpaidAmount"]').value = unpaidAmount.toFixed(2);
+
+    // Handle account option logic
+    const options = accountSelect.options;
+    if (paidAmount <= 0) {
+        for (let i = 0; i < options.length; i++) {
+            options[i].disabled = options[i].value !== "Unpaid";
+            if (options[i].value === "Unpaid") {
+                options[i].selected = true;
+            }
+        }
+    } else {
+        for (let i = 0; i < options.length; i++) {
+            if (options[i].value === "Unpaid") {
+                options[i].disabled = true;
+            } else {
+                options[i].disabled = false;
+            }
+        }
+        if (!account || account === "Unpaid") {
+            alert("Select Payment Account.");
+            return;
+        }
+    }
+
+    const status = unpaidAmount === 0 ? `Paid-${account}` : "Unpaid";
+
+    // Update the record
+    combinedSales[editIndex] = {
+        no: combinedSales[editIndex].no, // Keep original number
+        date,
+        cashierName,
+        clientName,
+        clientAddress,
+        clientContact,
+        invoiceNo,
+        products: [...productSales],
+        totalSales,
+        paidAmount,
+        unpaidAmount,
+        status,
+        progress
+    };
+
+    updateSalesDetailsTable();
+    saveDataToLocal();
+    displayCombinedSales();
+    clearProductSalesTable();
+    clearAllForms();
+
+    editIndex = -1;
+    document.getElementById("updateSalesButton").style.display = "none";
+    document.getElementById("addSalesButton").style.display = "inline-block";
+}
+
+
+function updateSalesDetailsTable() {
+    const tableBody = document.getElementById('salesDetailsTableBody');
+
+    // Clear existing table rows
+    tableBody.innerHTML = '';
+
+    // Iterate through combined sales data
+    for (let i = 0; i < combinedSales.length; i++) {
+        const salesRecord = combinedSales[i];
+        const row = tableBody.insertRow();
+
+        // Add basic sales details
+        row.innerHTML = `
+            <td>${salesRecord.no}</td>
+            <td class="no-wrap">${formatDate(salesRecord.date)}</td>
+            <td>${salesRecord.invoiceNo}</td>
+            <td>${salesRecord.cashierName}</td>
+            <td>${salesRecord.clientName}</td>
+            <td>${salesRecord.clientAddress}</td>
+            <td class="no-wrap">${salesRecord.clientContact}</td>
+            <td>${formatNumberWithSeparator(salesRecord.totalSales)}</td>
+            <td>${formatNumberWithSeparator(salesRecord.paidAmount)}</td>
+            <td>${formatNumberWithSeparator(salesRecord.unpaidAmount)}</td>
+            <td>${salesRecord.status}</td>
+            <td>${salesRecord.progress}</td>
+        `;
+
+        // Add product details columns
+        for (let j = 1; j <= 10; j++) { // Assuming up to 10 product columns
+            const product = salesRecord.products[j - 1] || {}; // Use an empty object if product doesn't exist
+            const productName = product.productName || '';
+            const quantity = product.quantity !== undefined ? formatNumberWithSeparator(product.quantity) : '';
+            const unitPrice = product.unitPrice !== undefined ? formatNumberWithSeparator(product.unitPrice) : '';
+            const totalPrice = product.totalPrice !== undefined ? formatNumberWithSeparator(product.totalPrice) : '';
+			const comments = product.comments || ''; // Adding comments input
+		
+
+            row.innerHTML += `
+                <td>${productName}</td>
+                <td>${quantity}</td>
+                <td>${unitPrice}</td>
+                <td>${totalPrice}</td>
+				 <td>${comments}</td>
+            `;
+        }
+    }
+}
+
+// Call the function to update the sales details table
+updateSalesDetailsTable();
+
+
+
+
+document.addEventListener('DOMContentLoaded', function () {
+    updateSalesDetailsTable();
+});
+
+// Format date
+function formatDate(dateStr) {
+  const d = new Date(dateStr);
+  return d.toLocaleString();
+}
+
+// Format number with commas
+function formatNumberWithSeparator(num) {
+  return Number(num).toLocaleString();
+}
+
+function formatDate(dateStr) {
+  const d = new Date(dateStr);
+  return d.toLocaleString();
+}
+
+function formatNumberWithSeparator(num) {
+  return Number(num).toLocaleString();
+}
+
+function filterData() {
+  const searchInput = document.getElementById('searchClientInput').value.trim().toLowerCase();
+  const selectedPayment = document.getElementById('filterAccount').value;
+  const selectedCashier = document.getElementById('filterCashier').value;
+  const selectedProgress = document.getElementById('filterProgress').value;
+  const selectedPeriod = document.getElementById('filterPeriod').value;
+  const filterFromDate = document.getElementById('filterFromDate').value;
+  const filterToDate = document.getElementById('filterToDate').value;
+
+  const filteredRecords = combinedSales.filter(record => {
+    const recordDate = new Date(record.date);
+
+    // Search
+    const matchesSearch =
+      searchInput === "" ||
+      String(record.date).toLowerCase().includes(searchInput) ||
+      String(record.clientName).toLowerCase().includes(searchInput) ||
+      String(record.clientAddress).toLowerCase().includes(searchInput) ||
+      String(record.clientContact).toLowerCase().includes(searchInput) ||
+      String(record.cashierName).toLowerCase().includes(searchInput) ||
+      String(record.invoiceNo).toLowerCase().includes(searchInput) ||
+      String(record.status).toLowerCase().includes(searchInput) ||
+      String(record.progress).toLowerCase().includes(searchInput);
+
+    // Payment filter
+    let matchesPayment = true;
+    if (selectedPayment !== "All") {
+      if (selectedPayment === "Unpaid") {
+        matchesPayment = record.status === "Unpaid";
+      } else {
+        matchesPayment = record.status === `Paid-${selectedPayment}`;
+      }
+    }
+
+    const matchesCashier = selectedCashier === "All cashiers" || record.cashierName === selectedCashier;
+    const matchesProgress = selectedProgress === "All" || record.progress === selectedProgress;
+
+    // Date filter
+    const matchesDateFrom = !filterFromDate || recordDate >= new Date(filterFromDate);
+    const matchesDateTo = !filterToDate || recordDate <= new Date(filterToDate);
+
+    // Period filter
+    let matchesPeriod = true;
+    const now = new Date();
+
+    switch (selectedPeriod) {
+      case "Annual":
+        matchesPeriod = recordDate.getFullYear() === now.getFullYear();
+        break;
+      case "Semester":
+        const currentMonth = now.getMonth() + 1;
+        const semesterStart = currentMonth <= 6 ? 0 : 6;
+        matchesPeriod = recordDate.getFullYear() === now.getFullYear() &&
+                        recordDate.getMonth() >= semesterStart &&
+                        recordDate.getMonth() < semesterStart + 6;
+        break;
+      case "Trimester":
+        const trimesterStart = Math.floor((now.getMonth()) / 3) * 3;
+        matchesPeriod = recordDate.getFullYear() === now.getFullYear() &&
+                        recordDate.getMonth() >= trimesterStart &&
+                        recordDate.getMonth() < trimesterStart + 3;
+        break;
+      case "Monthly":
+        matchesPeriod = recordDate.getFullYear() === now.getFullYear() &&
+                        recordDate.getMonth() === now.getMonth();
+        break;
+      case "Weekly":
+        const thisWeek = getWeekNumber(now);
+        const recordWeek = getWeekNumber(recordDate);
+        matchesPeriod = recordDate.getFullYear() === now.getFullYear() &&
+                        thisWeek === recordWeek;
+        break;
+      case "Daily":
+        matchesPeriod = recordDate.toDateString() === now.toDateString();
+        break;
+      case "Hourly":
+        matchesPeriod = recordDate.toDateString() === now.toDateString() &&
+                        recordDate.getHours() === now.getHours();
+        break;
+    }
+
+    return matchesSearch && matchesPayment && matchesCashier && matchesProgress && matchesDateFrom && matchesDateTo && matchesPeriod;
+  });
+
+  displaySearchResults(filteredRecords);
+}
+
+// Helper to get ISO week number
+function getWeekNumber(d) {
+  const date = new Date(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()));
+  const dayNum = date.getUTCDay() || 7;
+  date.setUTCDate(date.getUTCDate() + 4 - dayNum);
+  const yearStart = new Date(Date.UTC(date.getUTCFullYear(), 0, 1));
+  return Math.ceil((((date - yearStart) / 86400000) + 1) / 7);
+}
+
+// Show results in table
+function displaySearchResults(records) {
+  const tableBody = document.querySelector("#salesTable tbody");
+  tableBody.innerHTML = '';
+
+  for (const record of records) {
+    tableBody.innerHTML += `
+      <tr>
+        <td class="numeric">${record.no}</td>
+        <td class="no-wrap">${formatDate(record.date)}</td>
+        <td>${record.clientName}</td>
+        <td>${record.clientAddress}</td>
+        <td class="no-wrap numeric">${record.clientContact}</td>
+        <td class="numeric">${formatNumberWithSeparator(record.totalSales)}</td>
+        <td>${record.cashierName}</td>
+        <td class="numeric">${record.invoiceNo}</td>
+        <td class="numeric">${formatNumberWithSeparator(record.paidAmount)}</td>
+        <td class="numeric">${formatNumberWithSeparator(record.unpaidAmount)}</td>
+        <td>${record.status}</td>
+        <td>${record.progress}</td>
+        <td class="no-wrap">
+          <button onclick="editSalesRecordByInvoiceNo('${record.invoiceNo}')">&#9998;</button>
+          <button onclick="retrieveInvoiceByInvoiceNo('${record.invoiceNo}')">&#128438;</button>
+          <button onclick="removeSalesRecord(${record.no})">&#10060;</button>
+        </td>
+      </tr>
+    `;
+  }
+}
+
+// Listeners
+document.addEventListener("DOMContentLoaded", function () {
+  displaySearchResults(combinedSales);
+
+  document.getElementById('searchClientInput').addEventListener('input', filterData);
+  document.getElementById('filterAccount').addEventListener('change', filterData);
+  document.getElementById('filterCashier').addEventListener('change', filterData);
+  document.getElementById('filterProgress').addEventListener('change', filterData);
+  document.getElementById('filterFromDate').addEventListener('change', filterData);
+  document.getElementById('filterToDate').addEventListener('change', filterData);
+  document.getElementById('filterPeriod').addEventListener('change', filterData);
+});
+
+  // Function to retrieve invoice by invoice number with password protection
+function retrieveInvoiceByInvoiceNo(invoiceNo) {
+ 
+        // Find the matching sales record based on the provided invoice number
+        const matchingRecord = combinedSales.find(record => record.invoiceNo === invoiceNo);
+
+        if (matchingRecord) {
+            // Generate the invoice content and open a print popup with a custom title
+            const invoiceContent = generateInvoiceContent(matchingRecord);
+          
+          // Request password before allowing any action
+    const enteredPassword = prompt('Enter password:');
+          
+
+    // Replace 'your_actual_password' with your actual password
+    const correctPassword = '123';
+
+    if (enteredPassword === correctPassword) {
+          openPrintPopup(invoiceContent, `Invoice ${matchingRecord.invoiceNo} - ${matchingRecord.clientName}`);
+           
+          } else {
+        // Display a message if the password is incorrect
+        alert('Incorrect password. Access denied.');
+          }
+          } else {
+            // Display a message if no matching invoice is found
+            alert('Invoice not found for the specified Invoice No.');
+        }        
+}
+
+function openPrintPopup(content, title) {
+    // Open a new popup window for printing with a custom title
+    const printWindow = window.open('', '_blank');
+    printWindow.document.write('<html><head><title>' + title + '</title></head><body>');
+    printWindow.document.write('<pre>' + content + '</pre>');
+    printWindow.document.write('</body></html>');
+    printWindow.document.close();
+    printWindow.print();
+}
+  
+function formatDate(dateString) {
+    // Parse the input date string
+    const dateObject = new Date(dateString);
+
+    // Get day, month, year, hours, and minutes components
+    const day = dateObject.getDate().toString().padStart(2, '0');
+    const month = new Intl.DateTimeFormat('en', { month: 'short' }).format(dateObject);
+    const year = dateObject.getFullYear().toString().substr(-2);
+    const hours = dateObject.getHours().toString().padStart(2, '0');
+    const minutes = dateObject.getMinutes().toString().padStart(2, '0');
+
+    // Construct the formatted date string
+    const formattedDate = `${day} ${month} ${year} ${hours}:${minutes}`;
+
+    return formattedDate;
+}
+
+function formatCurrentDateTime() {
+    const currentDate = new Date();
+
+    // Get day, month, year, hours, and minutes components
+    const day = currentDate.getDate().toString().padStart(2, '0');
+    const month = (currentDate.getMonth() + 1).toString().padStart(2, '0'); // Month is zero-based
+    const year = currentDate.getFullYear().toString().substr(-2);
+    const hours = currentDate.getHours().toString().padStart(2, '0');
+    const minutes = currentDate.getMinutes().toString().padStart(2, '0');
+
+    // Construct the formatted date and time string
+    const formattedDateTime = `${day} ${getMonthName(month)} ${year} ${hours}:${minutes}`;
+
+    return formattedDateTime;
+}
+
+// Helper function to get month name
+function getMonthName(month) {
+    const months = [
+        'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'
+    ];
+    return months[month - 1];
+}
+
+
+
+
+     function generateInvoiceContent(salesRecord) {
+  
+        // Generate invoice content based on sales record
+        let invoiceContent = `
+<style>
+  
+#invoiceTable {
+            width: 100%;
+            border-collapse: collapse;
+			font-size:15
+        }
+	#invoiceTable th, #invoiceTable td{
+            border: 1px solid black;
+            padding: 3px;
+            text-align: right;
+        }
+		.footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: #CDCDCD;
+  color: black;
+  bold;
+  text-align: right;
+  font-size:15
+}
+</style>
+<div>
+<p style="font-size:40px;" align="center"><b> Modern Technology Business and Services 
+(MTBS)
+Computer Services</p></b>
+<p style="font-size:20px;" align="right">HABUMUGISHA Evariste
+   RWAMAGANA-KARENGE
+   TIN: 106583262
+   TEL: 0788609869<br>
+   Date: ${formatDate(salesRecord.date)}</p>
+<p style="font-size:30px;" align="center"><b>Invoice No: ${salesRecord.invoiceNo}</p></b>
+To: ${salesRecord.clientName}
+Address: ${salesRecord.clientAddress}
+Tel: ${salesRecord.clientContact}</p>
+</div>
+<table id="invoiceTable">
+    <tr>
+        <th>No</th>
+        <th>Product</th>
+        <th>Quantity</th>
+        <th>Unit Price</th>
+        <th>Total Price</th>
+    </tr>
+`;
+
+        for (const product of salesRecord.products) {
+            invoiceContent += `
+    <tr>
+        <td>${product.no}</td>
+        <td>${product.productName}</td>
+        <td>${formatNumberWithSeparator(product.quantity)}</td>
+        <td>${formatNumberWithSeparator(product.unitPrice.toFixed(0))}</td>
+        <td>${formatNumberWithSeparator(product.totalPrice.toFixed(0))}</td>
+    </tr>`;
+        }
+
+        invoiceContent += `
+    <tr>
+        <td colspan="4" align="right"><strong>Grand Total</strong></td>
+        <td>${formatNumberWithSeparator(salesRecord.totalSales.toFixed(0))}</td>
+    </tr>
+	<tr>
+        <td colspan="4" align="right"><strong>Paid</strong></td>
+        <td>${formatNumberWithSeparator(salesRecord.paidAmount)}</td>
+    </tr>
+	<tr> 
+        <td colspan="4" align="right"><strong>Unpaid</strong></td>
+        <td>${formatNumberWithSeparator(salesRecord.unpaidAmount)}</td>
+    </tr>
+</table>
+
+<div style="margin-top: 10px;">
+   <p style="font-size:14px;" align="center">Cashier: ${salesRecord.cashierName}</p>
+</div>
+
+<div class="footer">
+    <strong>ACCOUNT:</strong> [00286-67030521-12 BK], [90-00068928-00 Umwalimu Sacco]
+</div>
+`;
+
+        return invoiceContent;
+    }
+
+		function generateLogBook() {
+    // Get the selected period
+    const fromDate = document.getElementById('filterFromDate').value;
+    const toDate = document.getElementById('filterToDate').value;
+
+    // Check if both dates are provided
+    if (!fromDate || !toDate) {
+        alert('Please select both From and To dates.');
+        return;
+    }
+
+    // Filter sales records based on the selected period
+    const filteredSales = combinedSales.filter(record => {
+        return record.date >= fromDate && record.date <= toDate;
+    });
+
+    // Check if there are sales records in the selected period
+    if (filteredSales.length === 0) {
+        alert('No sales records found for the selected period.');
+        return;
+    }
+
+    // Calculate and display log book information with title
+    const logBookContent = generateLogBookContent(filteredSales, fromDate, toDate);
+    openPrintPopup(logBookContent);
+}
+
+function generateLogBookContent(filteredSales, fromDate, toDate) {
+const currentDate = new Date().toLocaleDateString();
+    let logBookContent = `
+        <style>
+            #logBookTable {
+                width: 100%;
+                border-collapse: collapse;
+                font-size: 15px;
+            }
+            #logBookTable th, #logBookTable td {
+                border: 1px solid black;
+                padding: 3px;
+                text-align: right;
+            }
+        </style>
+        <div>
+            <p style="font-size:40px;" align="center"><b>Modern Technology Business and Services 
+            (MTBS)
+            Computer Services</p></b>
+            <p style="font-size:20px;" align="center">Report: From ${formatDate(fromDate)} to ${formatDate(toDate)}</p>
+        </div>
+        <table id="logBookTable">
+            <tr>
+                <th>No</th>
+                <th>Product</th>
+                <th>Total Quantity</th>
+                <th>Total Price</th>
+            </tr>
+    `;
+
+    const productSummary = calculateProductSummary(filteredSales);
+
+    for (const product of Object.keys(productSummary)) {
+        // Exclure les totaux du log book et les entrées sans numéro défini
+        if (product.toLowerCase().includes('grand total') || productSummary[product].no === undefined) {
+            continue;
+        }
+
+        logBookContent += `
+            <tr>
+                <td>${productSummary[product].no}</td>
+                <td>${product}</td>
+                <td>${formatNumberWithSeparator(productSummary[product].totalQuantity)}</td>
+                <td>${formatNumberWithSeparator(productSummary[product].totalPrice.toFixed(0))}</td>
+            </tr>
+        `;
+    }
+
+    // Calculer et afficher le grand total
+    const grandTotal = filteredSales.reduce((total, record) => total + record.totalSales, 0);
+    logBookContent += `
+        <tr>
+            <td colspan="3" align="right"><strong>Grand Total</strong></td>
+            <td><strong>${formatNumberWithSeparator(grandTotal.toFixed(0))}</td></strong>
+        </tr>
+    `;
+
+
+   logBookContent += `</table>`;
+
+    logBookContent += `
+        <div style="margin-top: 10px;">
+            <p style="font-size:14px;" align="right">Report generated on ${formatCurrentDateTime(currentDate)}</p>
+        </div>
+    `;
+
+    return logBookContent;
+}
+
+
+function calculateProductSummary(filteredSales) {
+    const productSummary = {};
+
+    for (const record of filteredSales) {
+        for (const product of record.products) {
+            if (!productSummary[product.productName]) {
+                productSummary[product.productName] = {
+                    no: Object.keys(productSummary).length + 1,
+                    totalQuantity: 0,
+                    totalPrice: 0,
+                };
+            }
+
+            productSummary[product.productName].totalQuantity += product.quantity;
+            productSummary[product.productName].totalPrice += product.totalPrice;
+        }
+    }
+
+    // Calculate the grand total
+    productSummary.grandTotal = {
+        totalQuantity: filteredSales.reduce((total, record) => total + record.products.length, 0),
+        totalPrice: filteredSales.reduce((total, record) => total + record.totalSales, 0),
+    };
+
+    return productSummary;
+}
+
+function formatCurrentDateTime(date) {
+    const months = [
+        "Jan", "Feb", "Mar", "Apr", "May", "Jun",
+        "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
+    ];
+
+    const day = String(date.getDate()).padStart(2, '0');
+    const month = months[date.getMonth()];
+    const year = date.getFullYear();
+
+    const hours = String(date.getHours()).padStart(2, '0');
+    const minutes = String(date.getMinutes()).padStart(2, '0');
+    const seconds = String(date.getSeconds()).padStart(2, '0');
+
+    return `${day} ${month} ${year}, ${hours}:${minutes}:${seconds}`;
+}
+
+function printTable() {
+  const filterStatus = document.getElementById('filterAccount').value;
+  const filterCashier = document.getElementById('filterCashier').value;
+  const filterProgress = document.getElementById('filterProgress').value;
+  const table = document.getElementById('salesTable');
+
+  if (!table) {
+    alert("Sales table not found!");
+    return;
+  }
+
+  const printWindow = window.open('', '_blank');
+  const rows = Array.from(table.querySelectorAll("tbody tr"));
+
+  const tableContent = rows.map(row => {
+    const cells = Array.from(row.cells).slice(0, -1);
+    return `<tr>${cells.map(cell => `
+      <td class="${cell.classList.contains('numeric') ? 'numeric' : ''}">${cell.innerHTML}</td>`).join('')}
+    </tr>`;
+  }).join('');
+
+  const grandTotal = calculateTotalColumn(table, 5);
+  const paidAmount = calculateTotalColumn(table, 8);
+  const unpaidAmount = calculateTotalColumn(table, 9);
+
+  let title = "Report of";
+  if (filterStatus !== "All") title += ` ${filterStatus}`;
+  if (filterProgress !== "All") title += ` ${filterProgress}`;
+  title += ` services offered by ${filterCashier}`;
+
+  const currentDate = new Date();
+  const end = `Report generated on ${formatCurrentDateTime(currentDate)}`;
+
+  printWindow.document.write(`
+    <html>
+      <head>
+        <title>${title}</title>
+        <style>
+          body { font-family: Arial, sans-serif; margin: 20px; }
+          h3, h4, p { text-align: center; }
+          table {
+            border-collapse: collapse;
+            width: 100%;
+            margin-top: 20px;
+          }
+          th, td {
+            border: 1px solid #000;
+            padding: 6px 10px;
+          }
+          td.numeric, th.numeric {
+            text-align: right;
+          }
+        </style>
+      </head>
+      <body>
+        <h3><strong>Modern Technology Business and Services (MTBS)<br>Computer Services</strong></h3>
+        <h4>${title}</h4>
+
+        <table>
+          <thead>
+            <tr>
+              <th>No</th>
+              <th>Date</th>
+              <th>Client</th>
+              <th>Address</th>
+              <th>Phone</th>
+              <th class="numeric">Total</th>
+              <th>Cashier</th>
+              <th>Invoice</th>
+              <th class="numeric">Paid</th>
+              <th class="numeric">Unpaid</th>
+              <th>Status</th>
+              <th>Progress</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${tableContent}
+            <tr>
+              <td colspan="5" align="right"><strong>Total</strong></td>
+              <td class="numeric"><strong>${formatNumberWithSeparator(grandTotal.toFixed(0))}</strong></td>
+              <td></td><td></td>
+              <td class="numeric"><strong>${formatNumberWithSeparator(paidAmount.toFixed(0))}</strong></td>
+              <td class="numeric"><strong>${formatNumberWithSeparator(unpaidAmount.toFixed(0))}</strong></td>
+              <td></td><td></td>
+            </tr>
+          </tbody>
+        </table>
+
+        <p style="margin-top: 30px; text-align: right;">${end}</p>
+      </body>
+    </html>
+  `);
+
+  printWindow.document.close();
+  printWindow.focus();
+  printWindow.onload = () => printWindow.print();
+}
+
+function calculateTotalColumn(table, columnIndex) {
+  const rows = Array.from(table.rows)
+    .filter(row => !row.classList.contains('exclude-from-print'));
+
+  let total = 0;
+  for (let i = 0; i < rows.length ; i++) {
+    const cellValue = parseFloat(rows[i].cells[columnIndex]?.innerHTML.replace(/,/g, '')) || 0;
+    total += cellValue;
+  }
+  return total;
+}
+
+function saveDataToLocal() {
+    // Save combined sales data to local storage
+	 localStorage.setItem('stockingData', JSON.stringify(stockingData));
+    localStorage.setItem('combinedSales', JSON.stringify(combinedSales));
+	 localStorage.setItem('stock', JSON.stringify(stock));
+	 localStorage.setItem('journalData', JSON.stringify(journalData));
+	 
+}
+// Function to reset/clear the sales form
+function clearSalesForm() {
+    // Reset the form to its initial state
+    const salesForm = document.querySelector('#salesForm');
+
+    // Set default values for specific fields
+    salesForm.querySelector('#clientName').value = 'Client1';
+    salesForm.querySelector('#clientAddress').value = 'Karenge';
+    salesForm.querySelector('#clientContact').value = '0000000000';
+
+    // Other fields can be reset similarly
+
+    // Calculate initial values or perform any other actions as needed
+
+    // Update the invoice number (if applicable)
+    updateInvoiceNumber();
+
+    // Reset any other elements or perform additional actions as needed
+}
+  
+  // Function to reset the product form
+function clearProductForm() {
+        // Clear the product input form
+        document.querySelector('#productForm').reset();
+		 document.getElementById('otherProductInput').style.display = 'none';
+    document.getElementById('syllabusOptions').style.display = 'none';
+    }
+
+// Function to clear used material form
+function resetAddEntryForm() {
+    // Reset the form to its initial state
+    document.getElementById('materialType').value = '';
+    document.getElementById('action').value = '';
+    document.getElementById('quantity').value = '';
+}
+
+// Function to clear all forms
+function clearAllForms() {
+    const materialStatusTable = document.getElementById("materialStatusTable");
+    productSalesTable.style.display = "block";
+    materialStatusTable.style.display = "none";
+
+    // Clear sales form inputs
+    document.querySelector('input[name="date"]').value = '';
+    document.querySelector('select[name="cashierName"]').value = '';
+    document.querySelector('input[name="clientName"]').value = 'Client1';
+    document.querySelector('input[name="clientAddress"]').value = 'Karenge';
+    document.querySelector('input[name="clientContact"]').value = '0000000000';
+    document.querySelector('input[name="paidAmount"]').value = '';
+    document.querySelector('input[name="unpaidAmount"]').value = '';
+    document.querySelector('input[name="invoiceNo"]').value = '';
+    document.querySelector('input[id="searchClientInput"]').value = '';
+    document.getElementById('updateSalesButton').style.display = 'none';
+    document.getElementById('addSalesButton').style.display = 'block';
+    document.querySelector('input[id="fromDate"]').value = '';
+    document.querySelector('input[id="toDate"]').value = '';
+	 document.querySelector('select[name="progress"]').value = 'Delivered';
+
+    // Clear product form
+    clearProductForm();
+
+    // Clear product sales table
+    clearProductSalesTable();
+    // Clear search input
+    document.getElementById('searchClientInput').value = '';
+
+    // Reset filter options
+    document.getElementById('filterStatus').value = 'All';
+    document.getElementById('filterCashier').value = 'All';
+	 document.getElementById('filterProgress').value = 'All';
+
+    // Reset date filters
+    document.getElementById('filterFromDate').value = '';
+    document.getElementById('filterToDate').value = '';
+
+    // Clear used material form
+    resetAddEntryForm();
+
+    // Clear other forms
+    clearProductForm();  // Assuming this is a function to clear another form
+
+    // Reset/clear the sales form
+    clearSalesForm();
+  // Display combined sales table
+    displayCombinedSales();
+    updateEntryNumbers();
+	 
+}
+let journalData = [];
+let editIndex = -1;
+
+function saveDataToLocalStorage() {
+    localStorage.setItem('journalData', JSON.stringify(journalData));
+}
+
+function loadDataFromLocalStorage() {
+    const storedData = localStorage.getItem('journalData');
+    if (storedData) {
+        journalData = JSON.parse(storedData);
+        updateJournalTable();
+    }
+}
+
+function getCurrentDateTime() {
+    const now = new Date();
+    const d = now.getDate().toString().padStart(2, '0');
+    const m = (now.getMonth() + 1).toString().padStart(2, '0');
+    const y = now.getFullYear().toString().slice(-2);
+    const hr = now.getHours().toString().padStart(2, '0');
+    const min = now.getMinutes().toString().padStart(2, '0');
+    return `${d}/${m}/${y} ${hr}:${min}`;
+}
+
+function addEntry() {
+    const description = document.getElementById("description").value.trim();
+    const income = parseFloat(document.getElementById("income").value) || 0;
+    const expenses = parseFloat(document.getElementById("expenses").value) || 0;
+    const date = getCurrentDateTime();
+    const cashier = document.getElementById("cashierName").value;
+
+    if (!description || (!income && !expenses) || !cashier) {
+        alert("Fill in description, cashier, and income or expenses.");
+        return;
+    }
+
+    const balance = journalData.length === 0
+        ? income - expenses
+        : journalData[journalData.length - 1].balance + income - expenses;
+
+    journalData.push({ 
+        no: journalData.length + 1, date, description, income, expenses, balance, cashier 
+    });
+
+    updateJournalTable();
+    saveDataToLocalStorage();
+    saveDataToServer();
+    document.getElementById("journalForm").reset();
+}
+
+function editEntry(index) {
+    editIndex = index;
+    const entry = journalData[index];
+
+    document.getElementById('description').value = entry.description;
+    document.getElementById('income').value = entry.income;
+    document.getElementById('expenses').value = entry.expenses;
+    document.getElementById('cashierName').value = entry.cashier;
+
+    document.getElementById('add-entry').style.display = 'none';
+    document.getElementById('update-entry').style.display = 'block';
+}
+
+function updateEntry() {
+    if (editIndex < 0 || !journalData[editIndex]) return;
+
+    const description = document.getElementById('description').value.trim();
+    const income = parseFloat(document.getElementById('income').value) || 0;
+    const expenses = parseFloat(document.getElementById('expenses').value) || 0;
+    const cashier = document.getElementById('cashierName').value.trim();
+    const date = getCurrentDateTime();
+
+    if (!description || (!income && !expenses) || !cashier) {
+        alert("Please provide valid data.");
+        return;
+    }
+
+    journalData[editIndex] = { ...journalData[editIndex], date, description, income, expenses, cashier };
+    updateBalancesFrom(editIndex);
+    renumberEntries();
+    updateJournalTable();
+    saveDataToLocalStorage();
+
+    clearForm();
+    document.getElementById('add-entry').style.display = 'block';
+    document.getElementById('update-entry').style.display = 'none';
+}
+
+function updateBalancesFrom(startIndex) {
+    for (let i = startIndex; i < journalData.length; i++) {
+        if (i === 0) {
+            journalData[i].balance = journalData[i].income - journalData[i].expenses;
+        } else {
+            journalData[i].balance = journalData[i - 1].balance + journalData[i].income - journalData[i].expenses;
+        }
+    }
+}
+
+function deleteEntry(index) {
+    if (confirm("Are you sure you want to delete this entry?")) {
+        journalData.splice(index, 1);
+        renumberEntries();
+        updateBalancesFrom(0);
+        updateJournalTable();
+        clearForm();
+        document.getElementById('add-entry').style.display = 'block';
+        document.getElementById('update-entry').style.display = 'none';
+        saveDataToLocalStorage();
+    }
+}
+
+function renumberEntries() {
+    for (let i = 0; i < journalData.length; i++) {
+        journalData[i].no = i + 1;
+    }
+}
+
+function clearForm() {
+    document.getElementById('description').value = '';
+    document.getElementById('income').value = '';
+    document.getElementById('expenses').value = '';
+    document.getElementById('cashierName').value = '';
+}
+
+function updateJournalTable() {
+    const tbody = document.getElementById("journal-entries");
+    tbody.innerHTML = "";
+
+    journalData.forEach((entry, index) => {
+        tbody.innerHTML += `
+            <tr>
+                <td>${index + 1}</td>
+                <td>${entry.date}</td>
+                <td>${entry.description}</td>
+                <td class="numeric">${formatNumberWithSeparator(entry.income)}</td>
+                <td class="numeric">${formatNumberWithSeparator(entry.expenses)}</td>
+                <td class="numeric">${formatNumberWithSeparator(entry.balance)}</td>
+                <td>${entry.cashierName || entry.cashier || ''}</td>
+                <td>
+                    <button onclick="editEntry(${index})">Edit</button>
+                    <button onclick="deleteEntry(${index})">Delete</button>
+                </td>
+            </tr>
+        `;
+    });
+}
+
+// ---------------- Export, Import, Save/Load from Server ----------------
+
+function exportData() {
+    const data = { productSales, combinedSales, stockingData, journalData };
+    const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'mtbs_data.json';
+    a.click();
+    URL.revokeObjectURL(url);
+}
+
+function importData(event) {
+    const file = event.target.files[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = function (e) {
+        try {
+            const data = JSON.parse(e.target.result);
+            productSales = data.productSales || [];
+            combinedSales = data.combinedSales || [];
+            stockingData = data.stockingData || [];
+            journalData = data.journalData || [];
+
+            displayProductSales();
+            displayCombinedSales();
+            updateStockingTable();
+            updateMaterialStatusTable();
+            updateSalesDetailsTable();
+            updateEntryNumbers();
+            updateJournalTable();
+
+            alert("Data loaded successfully.");
+        } catch {
+            alert("Invalid file format.");
+        }
+    };
+    reader.readAsText(file);
+}
+
+function saveDataToServer() {
+    const data = { productSales, combinedSales, stockingData, journalData };
+
+    fetch('/save', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+    })
+    .then(res => res.json())
+    .then(msg => {
+        const box = document.getElementById("saveMessage");
+        box.style.display = "block";
+        box.textContent = "✅ " + msg.message;
+        setTimeout(() => box.style.display = "none", 3000);
+    })
+    .catch(() => alert("❌ Failed to save data."));
+}
+
+function loadDataFromServer() {
+    fetch('/load')
+        .then(res => res.json())
+        .then(data => {
+            productSales = data.productSales || [];
+            combinedSales = data.combinedSales || [];
+            stockingData = data.stockingData || [];
+            journalData = data.journalData || [];
+
+            displayProductSales();
+            displayCombinedSales();
+            updateStockingTable();
+            updateMaterialStatusTable();
+            updateSalesDetailsTable();
+            updateJournalTable();
+        })
+        .catch(err => console.error("Load error:", err));
+}
+
+// ---------------- Initialization ----------------
+
+document.addEventListener("DOMContentLoaded", function () {
+    loadDataFromServer(); // or loadDataFromLocalStorage() for local
+});
+</script>
+</body>
+</html>
